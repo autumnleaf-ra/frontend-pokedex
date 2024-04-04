@@ -4,7 +4,7 @@ const initialState = {
   isModalOpen: false,
 };
 
-const modalCatchPokemon = createSlice({
+const modalCatchPokemonSlice = createSlice({
   name: "modalCatch",
   initialState,
   reducers: {
@@ -17,5 +17,5 @@ const modalCatchPokemon = createSlice({
   },
 });
 
-export const { openModal, closeModal } = modalCatchPokemon.actions;
-export default modalCatchPokemon.reducer;
+export const { openModal, closeModal } = modalCatchPokemonSlice.actions;
+export const modalCatchPokemonReducer = modalCatchPokemonSlice.reducer;

@@ -6,6 +6,7 @@ import CatchPokemon from "../modals/CatchPokemon";
 const DetailPokemon = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
+  const Fakedata = Math.random() < 0.5;
 
   const handleCloseModal = () => {
     dispatch(closeModal());
@@ -49,7 +50,12 @@ const DetailPokemon = () => {
         >
           Catch Pokemon
         </button>
-        {open && <CatchPokemon handleCatchClicked={handleCatchClicked} />}
+        {open && (
+          <CatchPokemon
+            handleCatchClicked={handleCatchClicked}
+            Fakedata={Fakedata}
+          />
+        )}
       </div>
     </div>
   );

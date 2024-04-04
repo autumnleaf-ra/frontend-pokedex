@@ -4,10 +4,14 @@ import Upper from "./Upper";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "./../redux/modalDetailPokemon";
 import ModalDetailPokemon from "./modals/DetailPokemon";
+import { useGetAllPokemonQuery } from "../redux/apiSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const isModalOpen = useSelector((state) => state.modal.isModalOpen);
+  const data = useGetAllPokemonQuery();
+  const isModalOpen = useSelector((state) => state.modalDetail.isModalOpen);
+
+  console.log(data);
 
   const handleCardClick = () => {
     dispatch(openModal());

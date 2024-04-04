@@ -1,10 +1,21 @@
-import { configureStore } from "@reduxjs/toolkit";
-import modalDetailPokemon from "./modalDetailPokemon";
-import modalCatchPokemon from "./modalCatchPokemon";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { pokemonAPI } from "./apiSlice";
+import { modalDetailPokemonReducer } from "./modalDetailPokemon"; // Change the import to use named export
+import { modalCatchPokemonReducer } from "./modalCatchPokemon"; // Change the import to use named export
+import { setupListeners } from "@reduxjs/toolkit/query";
 
-export default configureStore({
-  reducer: {
-    modal: modalDetailPokemon,
-    modalCatch: modalCatchPokemon,
-  },
+const rootReducer = combineReducers({
+  modalDetail: modalDetailPokemonReducer, // Use the imported named export
+  modalCatch: modalCatchPokemonReducer, // Use the imported named export
+  [pokemonAPI.reducerPath]: pokemonAPI.reducer,
 });
+
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(pokemonAPI.middleware),
+});
+
+setupListeners(store.dispatch);
+
+export default store;
