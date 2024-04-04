@@ -1,6 +1,16 @@
 import React from "react";
+import { useGetPokemonByNameQuery } from "../../redux/apiSlice";
 
-function Cards({ handleCardClick }) {
+function Cards({ handleCardClick, pokemon }) {
+  const { data, error, isLoading } = useGetPokemonByNameQuery(pokemon);
+  if (isLoading) return <div>Loading {pokemon}...</div>;
+  if (error)
+    return (
+      <div>
+        Error fetching {pokemon}: {error.message}
+      </div>
+    );
+
   return (
     <>
       {/* <button> */}
@@ -11,14 +21,11 @@ function Cards({ handleCardClick }) {
         >
           <div className="flex flex-col">
             <div className="mx-auto">
-              <img
-                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
-                alt="photos"
-              />
+              <img src={data?.sprites.front_default} alt={data.name} />
             </div>
-            <div>name : askdkas</div>
-            <div>abbilites: asjdjasjd</div>
-            <div>height : 91293921</div>
+            <div>name : {data.name}</div>
+            {/* <div>abbilites: asjdjasjd</div> */}
+            <div>height : {data.height}</div>
           </div>
         </div>
       </div>

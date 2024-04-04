@@ -2,8 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../redux/modalDetailPokemon";
 import CatchPokemon from "../modals/CatchPokemon";
+import { useGetPokemonByNameQuery } from "../../redux/apiSlice";
 
-const DetailPokemon = () => {
+const DetailPokemon = ({ pokemon }) => {
+  const { data, error, isLoading } = useGetPokemonByNameQuery(pokemon);
+  if (isLoading) return <div>Loading {pokemon}...</div>;
+  if (error)
+    return (
+      <div>
+        Error fetching {pokemon}: {error.message}
+      </div>
+    );
+  console.log(data);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const Fakedata = Math.random() < 0.5;
@@ -33,15 +43,12 @@ const DetailPokemon = () => {
         </div>
         <div className="flex justify-center py-6">
           <div className="flex flex-col">
-            <div>
-              <img
-                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
-                alt=""
-              />
+            <div className="mx-auto">
+              <img src={data?.sprites.front_default} alt={data.name} />
             </div>
-            <div>name : askdkas</div>
-            <div>abbilites: asjdjasjd</div>
-            <div>height : 91293921</div>
+            <div>name : {data.name}</div>
+            {/* <div>abbilites: asjdjasjd</div> */}
+            <div>height : {data.height}</div>
           </div>
         </div>
         <button

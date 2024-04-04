@@ -1,12 +1,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { pokemonAPI } from "./apiSlice";
-import { modalDetailPokemonReducer } from "./modalDetailPokemon"; // Change the import to use named export
-import { modalCatchPokemonReducer } from "./modalCatchPokemon"; // Change the import to use named export
+import { modalDetailPokemonReducer } from "./modalDetailPokemon";
+import { modalCatchPokemonReducer } from "./modalCatchPokemon";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
 const rootReducer = combineReducers({
-  modalDetail: modalDetailPokemonReducer, // Use the imported named export
-  modalCatch: modalCatchPokemonReducer, // Use the imported named export
+  modalDetail: modalDetailPokemonReducer,
+  modalCatch: modalCatchPokemonReducer,
   [pokemonAPI.reducerPath]: pokemonAPI.reducer,
 });
 
