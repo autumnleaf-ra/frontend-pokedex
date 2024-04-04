@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
-import Home from "./components/Home";
+import Home from "./pages/Home";
+import Pokedex from "./pages/MyPokedex";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
         <div>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/pokedex" element={<Pokedex />} />
           </Routes>
         </div>
       </Router>
