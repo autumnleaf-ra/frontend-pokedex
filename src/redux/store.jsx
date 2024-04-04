@@ -8,15 +8,14 @@ const rootReducer = combineReducers({
   modalDetail: modalDetailPokemonReducer,
   modalCatch: modalCatchPokemonReducer,
   [pokemonAPI.reducerPath]: pokemonAPI.reducer,
-  [anotherAPI.reducerPath]: anotherAPI.reducer,
+  // [anotherAPI.reducerPath]: anotherAPI.reducer,
 });
 
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()
-      .concat(pokemonAPI.middleware)
-      .concat(anotherAPI.middleware),
+    getDefaultMiddleware().concat(pokemonAPI.middleware),
+  // .concat(anotherAPI.middleware),
 });
 
 setupListeners(store.dispatch);

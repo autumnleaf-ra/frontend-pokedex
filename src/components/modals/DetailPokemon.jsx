@@ -13,7 +13,7 @@ const DetailPokemon = ({ pokemon }) => {
         Error fetching {pokemon}: {error.message}
       </div>
     );
-  console.log(data);
+
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const Fakedata = Math.random() < 0.5;
@@ -46,9 +46,10 @@ const DetailPokemon = ({ pokemon }) => {
             <div className="mx-auto">
               <img src={data?.sprites.front_default} alt={data.name} />
             </div>
-            <div>name : {data.name}</div>
+            <div>Name : {data.name}</div>
             {/* <div>abbilites: asjdjasjd</div> */}
-            <div>height : {data.height}</div>
+            <div>Weight : {data.weight} </div>
+            <div>Height : {data.height}</div>
           </div>
         </div>
         <button

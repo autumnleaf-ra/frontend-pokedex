@@ -23,9 +23,7 @@ function Cards({ handleCardClick, pokemon }) {
             <div className="mx-auto">
               <img src={data?.sprites.front_default} alt={data.name} />
             </div>
-            <div>name : {data.name}</div>
-            {/* <div>abbilites: asjdjasjd</div> */}
-            <div>height : {data.height}</div>
+            <div className="font-semibold"> {data.name.toUpperCase()}</div>
           </div>
         </div>
       </div>
