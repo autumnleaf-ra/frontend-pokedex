@@ -13,4 +13,15 @@ export const pokemonAPI = createApi({
   }),
 });
 
+export const anotherAPI = createApi({
+  reducerPath: "anotherApi",
+  baseQuery: fetchBaseQuery({ baseUrl: "https://pokeapi.co/api/v2/" }),
+  endpoints: (builder) => ({
+    getAllPokemonDD: builder.query({
+      query: () => "pokemon",
+    }),
+  }),
+});
+
 export const { useGetAllPokemonQuery, useGetPokemonByNameQuery } = pokemonAPI;
+export const { useGetAllPokemonDDQuery } = anotherAPI;
