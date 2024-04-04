@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import modalReducer from "./modalSlice";
+import modalDetailPokemon from "./modalDetailPokemon";
 
 export default configureStore({
   reducer: {
-    modal: modalReducer,
+    modal: modalDetailPokemon,
   },
 });

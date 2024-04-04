@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { closeModal } from "../../redux/modalSlice";
+import { closeModal } from "../../redux/modalDetailPokemon";
 
-const DetailPokemon = ({ handleCloseModal }) => {
-  // const dispatch = useDispatch();
+const DetailPokemon = () => {
+  const dispatch = useDispatch();
 
-  // const handleCloseModal = () => {
-  //   dispatch(closeModal());
-  // };
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
 
   return (
     <div className="modal">
