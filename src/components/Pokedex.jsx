@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { openModal } from "./../redux/modalDetailPokemon";
+import { openModal } from "./../redux/modalDetailPokedex";
 import CardsPokedex from "./cards/CardsPokedex";
 import Upper from "./Upper";
 import { useGetAllPokedexQuery } from "../redux/apiSlice";
-import ModalDetailPokemon from "./modals/DetailPokemon";
+import ModalDetailPokedex from "./modals/DetailPokedex";
 
 const Pokedex = () => {
   const dispatch = useDispatch();
   const { data: pokemon, isLoading } = useGetAllPokedexQuery();
   const [selectedPokemon, setSelectedPokemon] = useState();
-  const isModalOpen = useSelector((state) => state.modalDetail.isModalOpen);
+  const isModalOpen = useSelector(
+    (state) => state.modalDetailPokedex.isModalOpen
+  );
   const [pokemonNames, setPokemonNames] = useState([]);
   const namePage = "pokedex";
 
@@ -33,15 +35,15 @@ const Pokedex = () => {
       <Upper />
       <div className="flex container mx-auto justify-center">
         <div className="sm:grid grid-cols-2 gap-2 lg:grid-cols-4">
-          {pokemonNames.map((pokemon) => (
+          {pokemonNames.map((pokemon, index) => (
             <CardsPokedex
               handleCardClick={() => handleCardClick(pokemon, namePage)}
-              key={pokemon.name}
+              key={index}
               pokemon={pokemon.name}
             />
           ))}
           {isModalOpen && (
-            <ModalDetailPokemon pokemon={selectedPokemon} type={namePage} />
+            <ModalDetailPokedex pokemon={selectedPokemon} type={namePage} />
           )}
         </div>
       </div>

@@ -1,8 +1,12 @@
 import React from "react";
-import { useGetPokemonByNameQuery } from "../../redux/apiSlice";
+import {
+  useGetPokedexNameQuery,
+  useGetPokemonByNameQuery,
+} from "../../redux/apiSlice";
 
 function CardsPokedex({ handleCardClick, pokemon }) {
-  const { data, error, isLoading } = useGetPokemonByNameQuery(pokemon);
+  const { data: pokedex, error, isLoading } = useGetPokedexNameQuery(pokemon);
+  const pokeData = pokedex?.data;
   if (isLoading) return <div>Loading {pokemon}...</div>;
   if (error)
     return (
@@ -22,9 +26,9 @@ function CardsPokedex({ handleCardClick, pokemon }) {
           <>
             <div className="flex flex-col">
               <div className="mx-auto">
-                <img src={data?.sprites.front_default} alt={data.name} />
+                <img src={pokeData?.image} alt={pokeData.name} />
               </div>
-              <div className="font-semibold"> {data.name} </div>
+              <div className="font-semibold"> {pokeData.pokemon_name} </div>
             </div>
           </>
         </div>
