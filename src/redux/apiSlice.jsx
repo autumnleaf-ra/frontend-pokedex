@@ -16,7 +16,7 @@ export const pokemonAPI = createApi({
 export const pokedexesAPI = createApi({
   reducerPath: "pokedexesApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://fictional-umbrella-6j57rwr67wjh5pj6-3000.app.github.dev/",
+    baseUrl: "http://localhost:3000",
   }),
   entityTypes: ["Pokedex"],
   endpoints: (builder) => ({
