@@ -18,15 +18,18 @@ export const pokedexesAPI = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://fictional-umbrella-6j57rwr67wjh5pj6-3000.app.github.dev/",
   }),
+  entityTypes: ["Pokedex"],
   endpoints: (builder) => ({
     getAllPokedex: builder.query({
       query: () => "/pokedexes",
+      providesTags: ["Pokedex"],
     }),
     catchPokemon: builder.mutation({
       query: ({ pokename }) => ({
         url: `/pokemon/catch/${pokename}`,
         method: "POST",
       }),
+      invalidatesTags: ["Pokedex"],
     }),
     updatePokemonCatch: builder.mutation({
       query: ({ id, pokeName }) => ({
@@ -34,6 +37,7 @@ export const pokedexesAPI = createApi({
         method: "PATCH",
         body: { name: pokeName },
       }),
+      invalidatesTags: ["Pokedex"],
     }),
     getPokedexName: builder.query({
       query: (name) => `/pokedexes/${name}`,
@@ -44,6 +48,7 @@ export const pokedexesAPI = createApi({
         method: "DELETE",
         body: { name: pokenName },
       }),
+      invalidatesTags: ["Pokedex"],
     }),
     updatePokedexName: builder.mutation({
       query: ({ id, pokeName }) => ({

@@ -16,10 +16,13 @@ const DetailPokedex = ({ pokemon, type }) => {
     error: errorPokedex,
     isLoading: isLoadingPokedex,
   } = useGetPokedexNameQuery(pokemon);
+
   const [statusCatch, setStatusCatch] = useState();
   const [dataIdPokemon, setDataIdPokemon] = useState(0);
   const [idPokemon, setIdPokemon] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [pokemonName, setPokemonName] = useState("");
+
   const [deletePokemon] = useDeletePokemonMutation();
   const [catchPokemon] = useCatchPokemonMutation();
   const [updatePokemon] = useUpdatePokedexNameMutation();
@@ -80,8 +83,12 @@ const DetailPokedex = ({ pokemon, type }) => {
       });
   };
 
-  const handleChangeName = () => {
-    deletePokemon({ id: pokedexData.id, pokenName: pokedexData.name })
+  const handleNameChange = (e) => {
+    setPokemonName(e.target.value);
+  };
+
+  const handleChangeNamePokedex = () => {
+    updatePokemon({ id: pokedexData.id, pokenName: pokedexData.name })
       .then((response) => {
         const res = response.data;
         alert(res.message);
@@ -121,42 +128,25 @@ const DetailPokedex = ({ pokemon, type }) => {
             <div>Height : {pokedexData.height}</div>
           </div>
         </div>
-        {type === "home" ? (
-          <button
-            className="flex mt-4 px-4 py-2 mx-auto bg-orange-500 rounded"
-            onClick={handleCatch}
-          >
-            Catch Pokemon
-          </button>
-        ) : (
-          <div className="flex flex-row space-x-5 ml-5">
-            <div>
-              <button
-                className="flex mt-4 px-4 py-2 mx-auto bg-orange-500 rounded"
-                onClick={handleChangeName}
-              >
-                Rename Pokemon
-              </button>
-            </div>
-            <div>
-              <button
-                className="flex mt-4 px-4 py-2 mx-auto bg-red-500 rounded"
-                onClick={handleDeletePokemon}
-              >
-                Delete Pokemon
-              </button>
-            </div>
+
+        <div className="flex flex-row space-x-5 ml-5">
+          <div>
+            <button
+              className="flex mt-4 px-4 py-2 mx-auto bg-orange-500 rounded"
+              onClick={handleChangeNamePokedex}
+            >
+              Rename Pokemon
+            </button>
           </div>
-        )}
-        {open && (
-          <CatchPokemon
-            handleCatchClicked={handleCatchClicked}
-            handleCloseModal={handleCloseModal}
-            Fakedata={Fakedata}
-            statusCatch={statusCatch}
-            dataIdPokemon={dataIdPokemon}
-          />
-        )}
+          <div>
+            <button
+              className="flex mt-4 px-4 py-2 mx-auto bg-red-500 rounded"
+              onClick={handleDeletePokemon}
+            >
+              Delete Pokemon
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
