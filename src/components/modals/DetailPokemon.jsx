@@ -91,33 +91,12 @@ const DetailPokemon = ({ pokemon, type }) => {
             <div>Height : {data.height}</div>
           </div>
         </div>
-        {type === "home" ? (
-          <button
-            className="flex mt-4 px-4 py-2 mx-auto bg-orange-500 rounded"
-            onClick={handleCatch}
-          >
-            Catch Pokemon
-          </button>
-        ) : (
-          <div className="flex flex-row space-x-5 ml-5">
-            <div>
-              <button
-                className="flex mt-4 px-4 py-2 mx-auto bg-orange-500 rounded"
-                onClick={handleChangeName}
-              >
-                Rename Pokemon
-              </button>
-            </div>
-            <div>
-              <button
-                className="flex mt-4 px-4 py-2 mx-auto bg-red-500 rounded"
-                onClick={handleDeletePokemon}
-              >
-                Delete Pokemon
-              </button>
-            </div>
-          </div>
-        )}
+        <button
+          className="flex mt-4 px-4 py-2 mx-auto bg-orange-500 rounded"
+          onClick={handleCatch}
+        >
+          Catch Pokemon
+        </button>
         {open && (
           <CatchPokemon
             handleCatchClicked={handleCatchClicked}

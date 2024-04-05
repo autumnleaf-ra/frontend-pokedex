@@ -51,20 +51,4 @@ const Pokedex = () => {
   );
 };
 
-// const Pokedex = () => {
-//   const { data: pokemon, isLoading } = useGetAllPokedexQuery();
-//   const [pokemonNames, setPokemonNames] = useState([]);
-
-//   useEffect(() => {
-//     if (!isLoading && pokemon) {
-//       const names = pokemon.map((pokemon) => ({
-//         name: pokemon.name,
-//       }));
-//       setPokemonNames(names);
-//     }
-//   }, [isLoading, pokemon]);
-
-//   console.log(pokemonNames);
-// };
-
 export default Pokedex;
