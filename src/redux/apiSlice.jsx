@@ -52,10 +52,11 @@ export const pokedexesAPI = createApi({
     }),
     updatePokedexName: builder.mutation({
       query: ({ id, pokeName }) => ({
-        url: `pokedex/update/${id}`,
+        url: `/pokedexes/rename/${id}`,
         method: "PATCH",
         body: { name: pokeName },
       }),
+      invalidatesTags: ["Pokedex"],
     }),
   }),
 });
