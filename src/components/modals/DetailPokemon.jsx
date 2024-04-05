@@ -4,7 +4,7 @@ import { closeModal } from "../../redux/modalDetailPokemon";
 import CatchPokemon from "../modals/CatchPokemon";
 import { useGetPokemonByNameQuery } from "../../redux/apiSlice";
 
-const DetailPokemon = ({ pokemon }) => {
+const DetailPokemon = ({ pokemon, type }) => {
   const { data, error, isLoading } = useGetPokemonByNameQuery(pokemon);
   if (isLoading) return <div>Loading {pokemon}...</div>;
   if (error)
@@ -24,6 +24,14 @@ const DetailPokemon = ({ pokemon }) => {
 
   const handleCatchClicked = () => {
     setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleDeletePokemon = () => {
+    console.log("Pokemon deleted");
+  };
+
+  const handleChangeName = () => {
+    console.log("show modal change name");
   };
 
   return (
@@ -52,12 +60,33 @@ const DetailPokemon = ({ pokemon }) => {
             <div>Height : {data.height}</div>
           </div>
         </div>
-        <button
-          className="flex mt-4 px-4 py-2 mx-auto bg-orange-500 rounded"
-          onClick={handleCatchClicked}
-        >
-          Catch Pokemon
-        </button>
+        {type === "home" ? (
+          <button
+            className="flex mt-4 px-4 py-2 mx-auto bg-orange-500 rounded"
+            onClick={handleCatchClicked}
+          >
+            Catch Pokemon
+          </button>
+        ) : (
+          <div className="flex flex-row space-x-5 ml-5">
+            <div>
+              <button
+                className="flex mt-4 px-4 py-2 mx-auto bg-orange-500 rounded"
+                onClick={handleChangeName}
+              >
+                Rename Pokemon
+              </button>
+            </div>
+            <div>
+              <button
+                className="flex mt-4 px-4 py-2 mx-auto bg-red-500 rounded"
+                onClick={handleDeletePokemon}
+              >
+                Delete Pokemon
+              </button>
+            </div>
+          </div>
+        )}
         {open && (
           <CatchPokemon
             handleCatchClicked={handleCatchClicked}

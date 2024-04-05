@@ -7,6 +7,7 @@ import ModalDetailPokemon from "./modals/DetailPokemon";
 import { useGetAllPokemonQuery } from "../redux/apiSlice";
 
 const Home = () => {
+  const namePage = "home";
   const dispatch = useDispatch();
   const { data: pokemon, isLoading } = useGetAllPokemonQuery();
   const [selectedPokemon, setSelectedPokemon] = useState();
@@ -22,9 +23,9 @@ const Home = () => {
     }
   }, [isLoading, pokemon]);
 
-  const handleCardClick = (pokemon) => {
+  const handleCardClick = (pokemon, namePage) => {
     setSelectedPokemon(pokemon.name);
-    dispatch(openModal());
+    dispatch(openModal({ pokemon: pokemon.name, type: namePage }));
   };
 
   return (
@@ -34,12 +35,14 @@ const Home = () => {
         <div className="sm:grid grid-cols-2 gap-2 lg:grid-cols-3">
           {pokemonNames.map((pokemon) => (
             <Cards
-              handleCardClick={() => handleCardClick(pokemon)}
+              handleCardClick={() => handleCardClick(pokemon, namePage)}
               key={pokemon.name}
               pokemon={pokemon.name}
             />
           ))}
-          {isModalOpen && <ModalDetailPokemon pokemon={selectedPokemon} />}
+          {isModalOpen && (
+            <ModalDetailPokemon pokemon={selectedPokemon} type={namePage} />
+          )}
         </div>
       </div>
     </>
