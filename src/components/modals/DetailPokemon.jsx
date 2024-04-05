@@ -9,7 +9,9 @@ import {
 
 const DetailPokemon = ({ pokemon, type }) => {
   const { data, error, isLoading } = useGetPokemonByNameQuery(pokemon);
-  const [statusCatch, setStatusCatch] = useState(false);
+  const [statusCatch, setStatusCatch] = useState();
+  const [dataIdPokemon, setDataIdPokemon] = useState(0);
+  const [idPokemon, setIdPokemon] = useState(0);
   const [loading, setLoading] = useState(false);
   const [catchPokemon] = useCatchPokemonMutation();
 
@@ -25,24 +27,34 @@ const DetailPokemon = ({ pokemon, type }) => {
   const dispatch = useDispatch();
   const Fakedata = Math.random() < 0.5;
 
-  const handleCloseModal = () => {
-    dispatch(closeModal());
-  };
-
-  const handleCatchClicked = () => {
-    catchPokemon({ pokename: "bulbasaur" })
+  const handleCatch = () => {
+    catchPokemon({ pokename: data.name })
       .then((response) => {
         const res = response.data;
         const statusCatch = res.success;
+        const pokemonData = res.pokemon;
+        let idPokemon = 0;
+        if (pokemonData !== undefined) {
+          idPokemon = pokemonData.id;
+        }
+        setDataIdPokemon(idPokemon);
         setStatusCatch(statusCatch);
       })
       .catch((error) => {
         console.error("Error:", error);
       })
       .finally(() => {
+        handleCatchClicked(statusCatch, idPokemon);
         setLoading(false);
-        setOpen((prevOpen) => !prevOpen);
       });
+  };
+
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
+
+  const handleCatchClicked = () => {
+    setOpen((prevOpen) => !prevOpen);
   };
 
   const handleDeletePokemon = () => {
@@ -52,10 +64,6 @@ const DetailPokemon = ({ pokemon, type }) => {
   const handleChangeName = () => {
     console.log("show modal change name");
   };
-
-  useEffect(() => {
-    console.log(statusCatch);
-  }, [handleCatchClicked]);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -86,7 +94,7 @@ const DetailPokemon = ({ pokemon, type }) => {
         {type === "home" ? (
           <button
             className="flex mt-4 px-4 py-2 mx-auto bg-orange-500 rounded"
-            onClick={handleCatchClicked}
+            onClick={handleCatch}
           >
             Catch Pokemon
           </button>
@@ -113,9 +121,10 @@ const DetailPokemon = ({ pokemon, type }) => {
         {open && (
           <CatchPokemon
             handleCatchClicked={handleCatchClicked}
+            handleCloseModal={handleCloseModal}
             Fakedata={Fakedata}
             statusCatch={statusCatch}
-            loading={loading}
+            dataIdPokemon={dataIdPokemon}
           />
         )}
       </div>

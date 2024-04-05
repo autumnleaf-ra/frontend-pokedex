@@ -28,8 +28,19 @@ export const pokedexesAPI = createApi({
         method: "POST",
       }),
     }),
+    updatePokemonCatch: builder.mutation({
+      query: ({ id, pokeName }) => ({
+        url: `https://fictional-umbrella-6j57rwr67wjh5pj6-3000.app.github.dev/pokemon/update/${id}`,
+        method: "PATCH",
+        body: { name: pokeName },
+      }),
+    }),
   }),
 });
 
 export const { useGetAllPokemonQuery, useGetPokemonByNameQuery } = pokemonAPI;
-export const { useGetAllPokedexQuery, useCatchPokemonMutation } = pokedexesAPI;
+export const {
+  useGetAllPokedexQuery,
+  useCatchPokemonMutation,
+  useUpdatePokemonCatchMutation,
+} = pokedexesAPI;
