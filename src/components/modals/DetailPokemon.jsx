@@ -2,10 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../redux/modalDetailPokemon";
 import CatchPokemon from "../modals/CatchPokemon";
-import { useGetPokemonByNameQuery } from "../../redux/apiSlice";
+import {
+  useCatchPokemonMutation,
+  useGetPokemonByNameQuery,
+} from "../../redux/apiSlice";
 
 const DetailPokemon = ({ pokemon, type }) => {
   const { data, error, isLoading } = useGetPokemonByNameQuery(pokemon);
+  const [statusCatch, setStatusCatch] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [catchPokemon] = useCatchPokemonMutation();
+
   if (isLoading) return <div>Loading {pokemon}...</div>;
   if (error)
     return (
@@ -23,7 +30,19 @@ const DetailPokemon = ({ pokemon, type }) => {
   };
 
   const handleCatchClicked = () => {
-    setOpen((prevOpen) => !prevOpen);
+    catchPokemon({ pokename: "bulbasaur" })
+      .then((response) => {
+        const res = response.data;
+        const statusCatch = res.success;
+        setStatusCatch(statusCatch);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+        setOpen((prevOpen) => !prevOpen);
+      });
   };
 
   const handleDeletePokemon = () => {
@@ -33,6 +52,10 @@ const DetailPokemon = ({ pokemon, type }) => {
   const handleChangeName = () => {
     console.log("show modal change name");
   };
+
+  useEffect(() => {
+    console.log(statusCatch);
+  }, [handleCatchClicked]);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -91,6 +114,8 @@ const DetailPokemon = ({ pokemon, type }) => {
           <CatchPokemon
             handleCatchClicked={handleCatchClicked}
             Fakedata={Fakedata}
+            statusCatch={statusCatch}
+            loading={loading}
           />
         )}
       </div>

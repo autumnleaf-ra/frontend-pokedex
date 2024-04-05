@@ -21,7 +21,7 @@ function CardsPokedex({ handleCardClick, pokemon }) {
         >
           <div className="flex flex-col">
             <div className="mx-auto">
-              <img src="" alt="pohoto" />
+              <img src={data?.sprites.front_default} alt={data.name} />
             </div>
             <div className="font-semibold"> {data.name} </div>
           </div>

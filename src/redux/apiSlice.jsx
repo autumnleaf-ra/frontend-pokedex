@@ -13,15 +13,23 @@ export const pokemonAPI = createApi({
   }),
 });
 
-export const anotherAPI = createApi({
-  reducerPath: "anotherApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://pokeapi.co/api/v2/" }),
+export const pokedexesAPI = createApi({
+  reducerPath: "pokedexesApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://fictional-umbrella-6j57rwr67wjh5pj6-3000.app.github.dev/",
+  }),
   endpoints: (builder) => ({
-    getAllPokemonDD: builder.query({
-      query: () => "pokemon",
+    getAllPokedex: builder.query({
+      query: () => "/pokedexes",
+    }),
+    catchPokemon: builder.mutation({
+      query: ({ pokename }) => ({
+        url: `/pokemon/catch/${pokename}`,
+        method: "POST",
+      }),
     }),
   }),
 });
 
 export const { useGetAllPokemonQuery, useGetPokemonByNameQuery } = pokemonAPI;
-export const { useGetAllPokemonDDQuery } = anotherAPI;
+export const { useGetAllPokedexQuery, useCatchPokemonMutation } = pokedexesAPI;
