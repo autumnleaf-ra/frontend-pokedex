@@ -4,12 +4,13 @@ import { closeModal } from "../../redux/modalDetailPokedex";
 import CatchPokemon from "../modals/CatchPokemon";
 import {
   useCatchPokemonMutation,
+  useDeletePokemonMutation,
   useGetPokedexNameQuery,
   useGetPokemonByNameQuery,
+  useUpdatePokedexNameMutation,
 } from "../../redux/apiSlice";
 
 const DetailPokedex = ({ pokemon, type }) => {
-  // const { data, error, isLoading } = useGetPokemonByNameQuery(pokemon);
   const {
     data: pokedex,
     error: errorPokedex,
@@ -19,17 +20,10 @@ const DetailPokedex = ({ pokemon, type }) => {
   const [dataIdPokemon, setDataIdPokemon] = useState(0);
   const [idPokemon, setIdPokemon] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [deletePokemon] = useDeletePokemonMutation();
   const [catchPokemon] = useCatchPokemonMutation();
+  const [updatePokemon] = useUpdatePokedexNameMutation();
   const pokedexData = pokedex?.data;
-  console.log(pokedexData);
-
-  // if (isLoading) return <div>Loading {pokemon}...</div>;
-  // if (error)
-  //   return (
-  //     <div>
-  //       Error fetching {pokemon}: {error.message}
-  //     </div>
-  //   );
 
   if (isLoadingPokedex) return <div>Loading {pokemon}...</div>;
   if (errorPokedex)
@@ -44,17 +38,15 @@ const DetailPokedex = ({ pokemon, type }) => {
   const Fakedata = Math.random() < 0.5;
 
   const handleCatch = () => {
-    catchPokemon({ pokename: data.name })
+    catchPokemon({ id: pokedex.id })
       .then((response) => {
         const res = response.data;
-        const statusCatch = res.success;
         const pokemonData = res.pokemon;
         let idPokemon = 0;
         if (pokemonData !== undefined) {
           idPokemon = pokemonData.id;
         }
         setDataIdPokemon(idPokemon);
-        setStatusCatch(statusCatch);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -74,11 +66,33 @@ const DetailPokedex = ({ pokemon, type }) => {
   };
 
   const handleDeletePokemon = () => {
-    console.log("Pokemon deleted");
+    deletePokemon({ id: pokedexData.id, pokenName: pokedexData.name })
+      .then((response) => {
+        const res = response.data;
+        alert(res.message);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      })
+      .finally(() => {
+        handleCloseModal();
+        handleCatchClicked();
+      });
   };
 
   const handleChangeName = () => {
-    console.log("show modal change name");
+    deletePokemon({ id: pokedexData.id, pokenName: pokedexData.name })
+      .then((response) => {
+        const res = response.data;
+        alert(res.message);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      })
+      .finally(() => {
+        handleCloseModal();
+        handleCatchClicked();
+      });
   };
 
   return (

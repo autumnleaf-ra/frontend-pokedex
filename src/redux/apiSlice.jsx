@@ -30,13 +30,27 @@ export const pokedexesAPI = createApi({
     }),
     updatePokemonCatch: builder.mutation({
       query: ({ id, pokeName }) => ({
-        url: `https://fictional-umbrella-6j57rwr67wjh5pj6-3000.app.github.dev/pokemon/update/${id}`,
+        url: `pokemon/update/${id}`,
         method: "PATCH",
         body: { name: pokeName },
       }),
     }),
     getPokedexName: builder.query({
       query: (name) => `/pokedexes/${name}`,
+    }),
+    deletePokemon: builder.mutation({
+      query: ({ id, pokenName }) => ({
+        url: `pokedexes/release/${id}`,
+        method: "DELETE",
+        body: { name: pokenName },
+      }),
+    }),
+    updatePokedexName: builder.mutation({
+      query: ({ id, pokeName }) => ({
+        url: `pokedex/update/${id}`,
+        method: "PATCH",
+        body: { name: pokeName },
+      }),
     }),
   }),
 });
@@ -47,4 +61,6 @@ export const {
   useCatchPokemonMutation,
   useUpdatePokemonCatchMutation,
   useGetPokedexNameQuery,
+  useDeletePokemonMutation,
+  useUpdatePokedexNameMutation,
 } = pokedexesAPI;
