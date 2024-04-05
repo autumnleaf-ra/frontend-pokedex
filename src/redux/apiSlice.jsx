@@ -35,6 +35,9 @@ export const pokedexesAPI = createApi({
         body: { name: pokeName },
       }),
     }),
+    getPokedexName: builder.query({
+      query: (name) => `/pokedexes/${name}`,
+    }),
   }),
 });
 
@@ -43,4 +46,5 @@ export const {
   useGetAllPokedexQuery,
   useCatchPokemonMutation,
   useUpdatePokemonCatchMutation,
+  useGetPokedexNameQuery,
 } = pokedexesAPI;

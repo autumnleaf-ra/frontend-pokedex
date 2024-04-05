@@ -19,12 +19,14 @@ function CardsPokedex({ handleCardClick, pokemon }) {
           className="flex border justify-center py-6 rounded-lg bg-blue-700 bg-opacity-60"
           onClick={handleCardClick}
         >
-          <div className="flex flex-col">
-            <div className="mx-auto">
-              <img src={data?.sprites.front_default} alt={data.name} />
+          <>
+            <div className="flex flex-col">
+              <div className="mx-auto">
+                <img src={data?.sprites.front_default} alt={data.name} />
+              </div>
+              <div className="font-semibold"> {data.name} </div>
             </div>
-            <div className="font-semibold"> {data.name} </div>
-          </div>
+          </>
         </div>
       </div>
       {/* </button> */}
